@@ -5,13 +5,21 @@ botaoAdicionar.addEventListener('click', (event) => {
 
     let form = document.querySelector('#form-adiciona');
 
-    var paciente = obterPacienteDoFormulario(form);
+    let paciente = obterPacienteDoFormulario(form);
 
-    var pacienteTr = montaTr(paciente)
+    let pacienteTr = montaTr(paciente)
 
+    let error = validaPaciente(paciente)
+    if(error.length > 0){
+        exibeMensagemDeErro(error)
+        return;
+    }
     tabela.appendChild(pacienteTr);
 
     form.reset();
+
+    let mensagemDeErro = document.querySelector('#mensagemError');
+    mensagemDeErro.innerHTML = "";
 
 })
 
@@ -28,7 +36,7 @@ function obterPacienteDoFormulario(form) {
     return paciente;
 }
 
-function montaTd(dado, classe){
+function montaTd(dado, classe) {
 
     var td = document.createElement('td');
     td.textContent = dado;
@@ -39,7 +47,7 @@ function montaTd(dado, classe){
 
 function montaTr(paciente) {
     let pacienteTr = document.createElement('tr');
-    
+
     pacienteTr.classList.add('paciente');
 
     pacienteTr.appendChild(montaTd(paciente.nome, 'info-nome'));
@@ -51,7 +59,36 @@ function montaTr(paciente) {
     return pacienteTr
 }
 
-function validaPaciente(paciente){
+function validaPaciente(paciente) {
+
+    let erros = [];
+
+    if (!validarPeso(paciente.peso))
+        erros.push('Peso é invalido');
+    if(!validarAltura(paciente.altura))
+        erros.push('Altura é inválida');
+    if(paciente.peso.length == 0)
+        erros.push('O peso não pode ser em branco');
+    if(paciente.altura.length == 0)
+        erros.push('A altura não pode ser em branco');
+    if(paciente.gordura.length == 0)
+        erros.push('A gordura não pode ser em branco');
+    if(paciente.nome.length == 0)
+        erros.push('O nome não pode ser em branco');
+
+    return erros
+
+}
+
+function exibeMensagemDeErro(error){
+    let ul = document.querySelector('#mensagemError')
+    ul.innerHTML = "";
     
+    error.forEach((er) => {
+        let li = document.createElement('li');
+        li.textContent = er;
+        li.style.color = 'red'
+        ul.appendChild(li);
+    })
 }
 

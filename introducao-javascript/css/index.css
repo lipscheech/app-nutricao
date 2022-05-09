@@ -136,3 +136,26 @@ button[disabled=disabled], button:disabled {
 .paciente-invalido{
 	background-color: red;
 }
+
+.mensagensError{
+	font-weight: bold;
+	color: red;
+}
+
+.fadeout {
+	opacity: 0;
+}
+.fadeout:hover{
+	transition: 0.5s;
+}
+
+#filtrarTabela{
+	width: 20rem;
+	height: 1.8rem;
+	margin-bottom: .8rem;
+	border-radius: .4rem;
+}
+
+.sumir{
+	display: none;
+}

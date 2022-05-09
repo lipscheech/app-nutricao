@@ -9,22 +9,20 @@ pacienteClass.forEach((p) => {
     let pacienteAltura = p.querySelector('.info-altura').textContent;
     let imc = p.querySelector('.info-imc');
 
-    console.log(validarPeso(pacientePeso), validarAltura(pacienteAltura));
-
     let pesoValido = validarPeso(pacientePeso);
     let alturaValida = validarAltura(pacienteAltura);
 
-    if (pesoValido) {
+    if (!pesoValido) {
         imc.textContent = "Peso inválido!";
         p.classList.add('paciente-invalido');
     }
 
-    if (alturaValida) {
+    if (!alturaValida) {
         imc.textContent = "Altura inválida!";
         p.classList.add('paciente-invalido')
     }
 
-    if (!alturaValida && !pesoValido) {
+    if (alturaValida && pesoValido) {
         imc.textContent = calculaImc(pacientePeso, pacienteAltura);
     }
 })
@@ -35,14 +33,14 @@ function calculaImc(peso, altura) {
 
 function validarPeso(peso){
     if(peso >= 0 && peso <= 100)
-        return false
-    return true
+        return true
+    return false
 }
 
 function validarAltura(altura){
     if(altura >= 0 && altura <= 3)
-        return false
-    return true
+        return true
+    return false
 }
 
 
