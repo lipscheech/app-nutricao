@@ -7,14 +7,13 @@ botaoAdicionar.addEventListener('click', (event) => {
 
     let paciente = obterPacienteDoFormulario(form);
 
-    let pacienteTr = montaTr(paciente)
-
     let error = validaPaciente(paciente)
     if(error.length > 0){
         exibeMensagemDeErro(error)
         return;
     }
-    tabela.appendChild(pacienteTr);
+
+    adicionarPacienteNaTabela(paciente)
 
     form.reset();
 
@@ -23,6 +22,10 @@ botaoAdicionar.addEventListener('click', (event) => {
 
 })
 
+function adicionarPacienteNaTabela(paciente){
+    let pacienteTr = montaTr(paciente);
+    tabela.appendChild(pacienteTr);
+}
 
 function obterPacienteDoFormulario(form) {
     let paciente = {
